@@ -1,26 +1,16 @@
 <mat-toolbar color="primary">
-  Product Catalog
+  <span class="toolbar-title">Product Catalog</span>
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search products">
+  </mat-form-field>
 </mat-toolbar>
 
-<div class="products-list">
-  <div class="products-grid">
-    <mat-card *ngFor="let product of products" class="product-card">
-      
-      <div class="image-wrapper">
-        <img [src]="product.image" alt="{{ product.name }}" class="product-image">
-      </div>
-
-      <mat-card-header>
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-subtitle>\${{ product.price }}</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content class="card-content-center">
-        <p>{{ product.description }}</p>
-        <p><strong>Stock:</strong> {{ product.count }}</p>
-        <p><strong>Barcode:</strong> {{ product.barcode }}</p>
-      </mat-card-content>
-
-    </mat-card>
-  </div>
+<div class="products-container">
+  <mat-grid-list cols="3" rowHeight="400px" gutterSize="16px">
+    <mat-grid-tile *ngFor="let product of filteredProducts">
+      <app-product-card [product]="product"></app-product-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

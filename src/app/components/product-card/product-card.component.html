@@ -1,0 +1,14 @@
+<mat-card class="example-card">
+      <mat-card-title class="card-content">{{ product.name }}</mat-card-title>
+      <div class="image-wrapper">
+        <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+      </div>
+    <mat-card-content class="card-content">
+      <p>{{ product.description }}</p>
+      <p><strong>£{{ product.price | number:'1.2-2' }}</strong></p>
+      
+      <button mat-raised-button color="primary">Add</button>
+
+    </mat-card-content>
+  </mat-card>
+  

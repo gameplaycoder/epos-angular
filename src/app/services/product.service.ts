@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
+export interface Category {
+  id: string;
+  name: string;
+}
+
 export interface Product {
   id: string;
   category: string;
@@ -28,5 +33,8 @@ export class ProductService {
 
   async getProductsByCategory(categoryId: string): Promise<Product[]> {
     return await firstValueFrom(this.http.get<Product[]>(`${this.apiUrl}?category=${categoryId}`));
+  }
+  async getCategories(): Promise<Category[]> {
+    return await firstValueFrom(this.http.get<Category[]>('/api/categories'));
   }
 }
