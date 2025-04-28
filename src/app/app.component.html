@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
-  <span class="toolbar-title">Product Catalog</span>
+  <span class="toolbar-title">Shop</span>
   <span class="spacer"></span>
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Search</mat-label>
-    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search products">
-  </mat-form-field>
-</mat-toolbar>
+    <mat-form-field class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search products">
+    </mat-form-field>
+  </mat-toolbar>
 
 <div class="products-container">
   <mat-grid-list cols="3" rowHeight="400px" gutterSize="16px">
