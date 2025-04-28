@@ -1,10 +1,21 @@
+<mat-toolbar color="primary">
+  Product Catalog
+</mat-toolbar>
+
 <div class="products-list">
-  <div *ngFor="let product of products" class="product-card">
-    <h3>{{ product.name }}</h3>
-    <p>{{ product.description }}</p>
-    <p>Price: ${{ product.price }}</p>
-    <p>Stock: {{ product.count }}</p>
-    <p>Barcode: {{ product.barcode }}</p>
-    <hr>
-  </div>
+  <mat-grid-list cols="3" rowHeight="400px" gutterSize="16px">
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card class="product-card">
+        <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+          <mat-card-subtitle>${{ product.price }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ product.description }}</p>
+          <p>Stock: {{ product.count }}</p>
+          <p>Barcode: {{ product.barcode }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

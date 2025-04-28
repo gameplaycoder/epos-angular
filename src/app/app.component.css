@@ -1,12 +1,10 @@
 .products-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    margin: 1rem;
   }
   
-  .product-card {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    width: 250px;
-    border-radius: 8px;
-  }
+.product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
