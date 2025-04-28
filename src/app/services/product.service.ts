@@ -10,6 +10,7 @@ export interface Product {
   description: string;
   price: number;
   barcode: string;
+  image: string; 
 }
 
 @Injectable({

@@ -4,11 +4,56 @@
       { "id": "2", "name": "clothing" },
       { "id": "3", "name": "electronics" }
     ],
-    "products": [
-      { "id": "1", "category": "1", "count": 100, "name": "Apples", "description": "Royal Gala Apples x6", "price": 1.99, "barcode": "1234567890" },
-      { "id": "2", "category": "1", "count": 100, "name": "Oranges", "description": "Oranges x5", "price": 1.50, "barcode": "9584567890" },
-      { "id": "3", "category": "1", "count": 100, "name": "Bananas", "description": "Bananas x8", "price": 1.25, "barcode": "4454567890" },
-      { "id": "4", "category": "2", "count": 3, "name": "Trousers", "description": "Trousers 2 Pack 3 years", "price": 7.00, "barcode": "6654567585" },
-      { "id": "5", "category": "3", "count": 3, "name": "TV", "description": "TCL 43 Inch LED TV", "price": 125.00, "barcode": "7784567585" }
-    ]
+"products": [
+    {
+      "id": "1",
+      "category": "1",
+      "count": 100,
+      "name": "Apples",
+      "description": "Royal Gala Apples x6",
+      "price": 1.99,
+      "barcode": "1234567890",
+      "image": "assets/images/apples.jpg"
+    },
+    {
+      "id": "2",
+      "category": "1",
+      "count": 100,
+      "name": "Oranges",
+      "description": "Oranges x5",
+      "price": 1.50,
+      "barcode": "9584567890",
+      "image": "assets/images/oranges.jpg"
+    },
+    {
+      "id": "3",
+      "category": "1",
+      "count": 100,
+      "name": "Bananas",
+      "description": "Bananas x8",
+      "price": 1.25,
+      "barcode": "4454567890",
+      "image": "assets/images/bananas.jpg"
+    },
+    {
+      "id": "4",
+      "category": "2",
+      "count": 3,
+      "name": "Trousers",
+      "description": "Trousers 2 Pack 3 years",
+      "price": 7.00,
+      "barcode": "6654567585",
+      "image": "assets/images/trousers.jpg"
+    },
+    {
+      "id": "5",
+      "category": "3",
+      "count": 3,
+      "name": "TV",
+      "description": "TCL 43 Inch LED TV",
+      "price": 125.00,
+      "barcode": "7784567585",
+      "image": "assets/images/tv.jpg"
+    }
+  ]
   }
