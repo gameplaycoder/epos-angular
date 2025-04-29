@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   filteredProducts: Product[] = [];
   categories: Category[] = [];    // <-- NEW
   searchTerm: string = '';
+  selectedCategory: string = 'all';
 
   constructor(private productService: ProductService, public basketService:BasketService) {}
 
@@ -21,8 +22,19 @@ export class AppComponent implements OnInit {
     this.categories = await this.productService.getCategories(); // <-- Load categories too
     this.filteredProducts = this.products;
   }
+  filterByCategory(categoryId: string) {
+    this.selectedCategory = categoryId;
+    this.onSearch(); // reuse existing search logic
+  }
+  increaseQuantity(product: Product) {
+    this.basketService.increaseQuantity(product);
+  }
+  
+  decreaseQuantity(product: Product) {
+    this.basketService.decreaseQuantity(product);
+  }
   getBasketTotal(): number {
-    return this.basketService.getBasket().reduce((sum, item) => sum + item.price, 0);
+    return this.basketService.getBasketTotal();
   }
   removeFromBasket(product: Product) {
     this.basketService.removeFromBasket(product);
@@ -36,7 +48,7 @@ export class AppComponent implements OnInit {
     // Later: Open a side-panel or navigate to /basket page
   }
   proceedToCheckout() {
-    const total = this.basketService.getBasket().reduce((sum, item) => sum + item.price, 0);
+    const total = this.basketService.getBasketTotal();
     alert(`Proceeding to checkout...\n\nTotal: $${total.toFixed(2)}\n\nThank you for your purchase!`);
     this.basketService.clearBasket();
   }
@@ -44,15 +56,19 @@ export class AppComponent implements OnInit {
     const search = this.searchTerm.toLowerCase();
   
     this.filteredProducts = this.products.filter(product => {
-      const productCategoryName = this.getCategoryName(product.category).toLowerCase();
-      const productBarcode = product.barcode ? product.barcode.toString().toLowerCase() : '';
+      const categoryName = this.getCategoryName(product.category).toLowerCase();
+      const barcode = product.barcode?.toString().toLowerCase() || '';
   
-      return (
+      const matchesSearch =
         product.name.toLowerCase().includes(search) ||
         product.description.toLowerCase().includes(search) ||
-        productCategoryName.includes(search) ||
-        productBarcode.includes(search)
-      );
+        categoryName.includes(search) ||
+        barcode.includes(search);
+  
+      const matchesCategory =
+        this.selectedCategory === 'all' || product.category === this.selectedCategory;
+  
+      return matchesSearch && matchesCategory;
     });
   }
 

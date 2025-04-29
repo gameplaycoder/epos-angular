@@ -1,23 +1,30 @@
 <mat-sidenav-container class="main-container">
-  <!-- 🛒 Basket Drawer -->
+  <!-- 🛒 Basket Sidebar -->
   <mat-sidenav mode="side" position="end" opened>
-    <h2><span>
-      <button mat-icon-button  class="basket-button">
-        <mat-icon>shopping_cart</mat-icon>
-        <span class="basket-count">{{ basketService.getBasketCount() }}</span>
-      </button>
-    </span>Basket – £{{ getBasketTotal() | number:'1.2-2' }}</h2>
+    <h2>
+      Basket – £{{ getBasketTotal() | number:'1.2-2' }}
+    </h2>
 
     <div *ngIf="basketService.getBasket().length; else emptyBasket">
       <div *ngFor="let item of basketService.getBasket()" class="basket-item">
-        <div>{{ item.name }}</div>
-        <div>£{{ item.price | number:'1.2-2' }}</div>
-        <button mat-button color="warn" (click)="removeFromBasket(item)">Remove</button>
+        <div>{{ item.product.name }}</div>
+
+        <div class="quantity-controls">
+          <button mat-icon-button (click)="decreaseQuantity(item.product)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span>{{ item.quantity }}</span>
+          <button mat-icon-button (click)="increaseQuantity(item.product)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <div>£{{ item.product.price * item.quantity | number:'1.2-2' }}</div>
       </div>
 
       <div class="basket-footer">
         <button mat-stroked-button color="warn" (click)="clearBasket()">Clear Basket</button>
-        <button mat-flat-button color="accent" (click)="proceedToCheckout()">Proceed to Checkout</button>
+        <button mat-flat-button color="primary" (click)="proceedToCheckout()">Proceed to Checkout</button>
       </div>
     </div>
 
@@ -26,13 +33,13 @@
     </ng-template>
   </mat-sidenav>
 
-  <!-- Main Content Area -->
+  <!-- 📦 Main Content Area -->
   <mat-sidenav-content>
-    <!-- 🔝 Toolbar -->
     <mat-toolbar color="primary">
-      <span class="toolbar-title">Shop 'til You Drop</span>
+      <span class="toolbar-title">Shop - Self checkout</span>
       <span class="spacer"></span>
 
+      <!-- 🔍 Search Field -->
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search</mat-label>
         <input
@@ -42,6 +49,28 @@
           placeholder="Search products"
         />
       </mat-form-field>
+
+      <!-- 📂 Category Dropdown -->
+      <button mat-button [matMenuTriggerFor]="categoryMenu">
+        Category
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #categoryMenu="matMenu">
+        <button mat-menu-item (click)="filterByCategory('all')">All</button>
+        <button
+          mat-menu-item
+          *ngFor="let cat of categories"
+          (click)="filterByCategory(cat.id)"
+        >
+          {{ cat.name | titlecase }}
+        </button>
+      </mat-menu>
+
+      <!-- 🛒 Basket Icon (docked, non-clickable) -->
+      <button mat-icon-button class="basket-button" disabled>
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="basket-count">{{ basketService.getBasketCount() }}</span>
+      </button>
     </mat-toolbar>
 
     <!-- 🧱 Product Grid -->

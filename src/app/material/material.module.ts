@@ -8,6 +8,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   exports: [
@@ -19,7 +21,9 @@ import {FormsModule} from '@angular/forms';
     MatGridListModule,
     MatFormFieldModule,  
     MatInputModule,
-    FormsModule      
+    FormsModule,
+    MatMenuModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }
