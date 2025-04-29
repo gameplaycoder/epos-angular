@@ -37,4 +37,9 @@ export class ProductService {
   async getCategories(): Promise<Category[]> {
     return await firstValueFrom(this.http.get<Category[]>('/api/categories'));
   }
+  async updateProductStock(productId: string, newCount: number): Promise<void> {
+    await firstValueFrom(this.http.patch(`/api/products/${productId}`, {
+      count: newCount
+    }));
+  }
 }

@@ -1,7 +1,12 @@
 <mat-sidenav-container class="main-container">
   <!-- 🛒 Basket Sidebar -->
   <mat-sidenav mode="side" position="end" opened>
+          <!-- 🛒 Basket Icon (docked, non-clickable) -->
     <h2>
+      <button mat-icon-button class="basket-button" disabled>
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="basket-count">{{ basketService.getBasketCount() }}</span>
+      </button>
       Basket – £{{ getBasketTotal() | number:'1.2-2' }}
     </h2>
 
@@ -40,15 +45,14 @@
       <span class="spacer"></span>
 
       <!-- 🔍 Search Field -->
-      <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Search</mat-label>
-        <input
-          matInput
-          [(ngModel)]="searchTerm"
-          (ngModelChange)="onSearch()"
-          placeholder="Search products"
-        />
-      </mat-form-field>
+        <mat-form-field class="search-field">
+          <mat-label>Search</mat-label>
+              <input matInput
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearch()"
+            placeholder="Product, Category or Barcode"
+          />
+        </mat-form-field>
 
       <!-- 📂 Category Dropdown -->
       <button mat-button [matMenuTriggerFor]="categoryMenu">
@@ -65,12 +69,6 @@
           {{ cat.name | titlecase }}
         </button>
       </mat-menu>
-
-      <!-- 🛒 Basket Icon (docked, non-clickable) -->
-      <button mat-icon-button class="basket-button" disabled>
-        <mat-icon>shopping_cart</mat-icon>
-        <span class="basket-count">{{ basketService.getBasketCount() }}</span>
-      </button>
     </mat-toolbar>
 
     <!-- 🧱 Product Grid -->

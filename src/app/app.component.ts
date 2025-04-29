@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from './services/product.service'; // Assuming you have it
 import { Product, Category } from './services/product.service'; // Assuming you have types
 import { BasketService } from './services/basket.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CheckoutDialogComponent } from './components/checkout-dialog/checkout-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ export class AppComponent implements OnInit {
   searchTerm: string = '';
   selectedCategory: string = 'all';
 
-  constructor(private productService: ProductService, public basketService:BasketService) {}
+  constructor(private productService: ProductService, public basketService:BasketService, private dialog: MatDialog) {}
 
   async ngOnInit() {
     this.products = await this.productService.getProducts();
@@ -43,15 +45,27 @@ export class AppComponent implements OnInit {
   clearBasket() {
     this.basketService.clearBasket();
   }
-  viewBasket() {
-    console.log('Viewing basket', this.basketService.getBasket());
-    // Later: Open a side-panel or navigate to /basket page
-  }
-  proceedToCheckout() {
-    const total = this.basketService.getBasketTotal();
-    alert(`Proceeding to checkout...\n\nTotal: $${total.toFixed(2)}\n\nThank you for your purchase!`);
+  async proceedToCheckout() {
+    const basket = this.basketService.getBasket();
+    const total = basket.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    const itemCount = basket.reduce((sum, item) => sum + item.quantity, 0);
+  
+    this.dialog.open(CheckoutDialogComponent, {
+      data: { total, itemCount },
+      width: '500px',
+      height: '300px',
+      panelClass: 'checkout-dialog-panel'
+    });
+  
+    // Update the stock counts
+    for (const item of basket) {
+      const newCount = item.product.count - item.quantity;
+      await this.productService.updateProductStock(item.product.id, newCount);
+    }
+  
     this.basketService.clearBasket();
   }
+  
   onSearch() {
     const search = this.searchTerm.toLowerCase();
   

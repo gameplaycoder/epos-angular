@@ -56,6 +56,7 @@
     position: sticky;
     top: 0;
     z-index: 1;
+    margin: 8px;
   }
 
   mat-grid-list {
@@ -74,14 +75,13 @@
   .spacer {
     flex: 1 1 auto;
   }
-  
+
   .search-field {
     width: 350px;
-    z-index: 2; 
     position: relative;
-    border-radius: 100px;
+    margin-top: 20px;
   }
-  
+
   /* Inside the form-field */
   .search-field .mat-form-field-flex {
     background-color: #ffffff;

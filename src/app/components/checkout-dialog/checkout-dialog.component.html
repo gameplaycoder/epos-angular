@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Thank You for Your Purchase!</h2>
+
+<mat-dialog-content>
+  <p>We appreciate your business. Please visit us again!</p>
+  <p><strong>Items Purchased:</strong> {{ data.itemCount }}</p>
+  <p><strong>Total:</strong> £{{ data.total | number:'1.2-2' }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

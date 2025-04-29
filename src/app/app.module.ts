@@ -7,11 +7,14 @@ import { MaterialModule } from './material/material.module';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CheckoutDialogComponent } from './components/checkout-dialog/checkout-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CheckoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    MatSidenavModule  
+    MatSidenavModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
