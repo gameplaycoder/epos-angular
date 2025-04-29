@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'app-product-card',
@@ -7,4 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class ProductCardComponent {
   @Input() product: any;
+  constructor(private basketService: BasketService) {}
+
+  addToBasket() {
+    this.basketService.addToBasket(this.product);
+  }
 }

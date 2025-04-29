@@ -1,16 +1,56 @@
-<mat-toolbar color="primary">
-  <span class="toolbar-title">Shop</span>
-  <span class="spacer"></span>
-    <mat-form-field class="search-field">
-      <mat-label>Search</mat-label>
-      <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search products">
-    </mat-form-field>
-  </mat-toolbar>
+<mat-sidenav-container class="main-container">
+  <!-- 🛒 Basket Drawer -->
+  <mat-sidenav mode="side" position="end" opened>
+    <h2><span>
+      <button mat-icon-button  class="basket-button">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="basket-count">{{ basketService.getBasketCount() }}</span>
+      </button>
+    </span>Basket – £{{ getBasketTotal() | number:'1.2-2' }}</h2>
 
-<div class="products-container">
-  <mat-grid-list cols="3" rowHeight="400px" gutterSize="16px">
-    <mat-grid-tile *ngFor="let product of filteredProducts">
-      <app-product-card [product]="product"></app-product-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+    <div *ngIf="basketService.getBasket().length; else emptyBasket">
+      <div *ngFor="let item of basketService.getBasket()" class="basket-item">
+        <div>{{ item.name }}</div>
+        <div>£{{ item.price | number:'1.2-2' }}</div>
+        <button mat-button color="warn" (click)="removeFromBasket(item)">Remove</button>
+      </div>
+
+      <div class="basket-footer">
+        <button mat-stroked-button color="warn" (click)="clearBasket()">Clear Basket</button>
+        <button mat-flat-button color="accent" (click)="proceedToCheckout()">Proceed to Checkout</button>
+      </div>
+    </div>
+
+    <ng-template #emptyBasket>
+      <p>No items in basket.</p>
+    </ng-template>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content>
+    <!-- 🔝 Toolbar -->
+    <mat-toolbar color="primary">
+      <span class="toolbar-title">Shop 'til You Drop</span>
+      <span class="spacer"></span>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearch()"
+          placeholder="Search products"
+        />
+      </mat-form-field>
+    </mat-toolbar>
+
+    <!-- 🧱 Product Grid -->
+    <div class="products-container">
+      <mat-grid-list cols="3" rowHeight="400px" gutterSize="16px">
+        <mat-grid-tile *ngFor="let product of filteredProducts">
+          <app-product-card [product]="product"></app-product-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

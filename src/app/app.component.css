@@ -105,3 +105,48 @@
     background-color: #ffffff;
   }
   
+  .basket-button {
+    position: relative;
+    margin-left: 16px;
+  }
+  
+  .basket-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(255, 138, 75);
+    color: white;
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .basket-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .main-container {
+    height: 100vh;
+  }
+  
+  .basket-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  mat-sidenav {
+    width: 300px; /* Adjust width of docked basket */
+    padding: 1rem;
+    background-color: #f8f8f8;
+  }

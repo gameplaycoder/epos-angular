@@ -6,9 +6,7 @@
     <mat-card-content class="card-content">
       <p>{{ product.description }}</p>
       <p><strong>£{{ product.price | number:'1.2-2' }}</strong></p>
-      
-      <button mat-raised-button color="primary">Add</button>
-
+      <button mat-raised-button color="primary" (click)="addToBasket()">Add</button>
     </mat-card-content>
   </mat-card>
   
